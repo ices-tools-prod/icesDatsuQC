@@ -1,6 +1,6 @@
 #' Runs quality checks on a dataset
 #'
-#' Check a data set against the ICES DATSU data submission utilty,
+#' Check a data set against the ICES DATSU data submission utility,
 #' the user must supply a dataset version and record type.
 #'
 #' @param filename the filename of the file to check

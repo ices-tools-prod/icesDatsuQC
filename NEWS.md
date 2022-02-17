@@ -2,16 +2,6 @@
 
 # icesDatsuQC 1.0.0 (2022-02-17)
 
-- Same as previous version.
-
-
-# icesDatsuQC 0.0.1 (2022-02-17)
-
-- Same as previous version.
-
-
-# icesDatsuQC 0.0.0.9001 (2022-02-17)
-
-* added function runQCChecks()
+* initial package, added function runQCChecks()
 
 

@@ -17,7 +17,7 @@ runQCChecks(filename, datasetverID, recordType)
 The list of Datasets that can be screened in DATSU with the IDs
 }
 \description{
-Check a data set against the ICES DATSU data submission utilty,
+Check a data set against the ICES DATSU data submission utility,
 the user must supply a dataset version and record type.
 }
 \examples{
