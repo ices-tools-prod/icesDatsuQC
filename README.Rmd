@@ -12,7 +12,7 @@ output:
 
 [<img align="right" alt="ICES Logo" width="17%" height="17%" src="http://ices.dk/_layouts/15/1033/images/icesimg/iceslogo.png">](http://ices.dk)
 
-```{r, setup, show = FALSE}
+```{r, setup, echo = FALSE}
 library(knitr)
 library(icesDatsuQC)
 ```
@@ -46,6 +46,40 @@ library(icesDatsuQC)
 
 Examples
 --------
+
+## Test a VMS data file
+
+A sample data file is included with the icesDatsu package called vms_test.csv
+```{r}
+filename <- system.file("test_files/vms_test.csv", package = "icesDatsu")
+vms_test <- read.csv(filename, header = FALSE)
+head(vms_test)
+```
+
+Lets say we have used the `icesDatsu` package to find the correct dataset version ID and
+record ID, that is, we know we want dataset 145 (VMS) and record type VE (VMS records).
+
+Then to run the SQL checks on our file, run:
+
+```{r}
+runQCChecks(filename, 145, "VE")
+```
+
+So all checks passed. Great, what is it like if there is an error? Lets force an error
+
+```{r}
+# invalid year
+vms_test[1:2, 3] <- 1999
+# invalid month
+vms_test[3, 4] <- 13
+# invalid discinct vessel count
+vms_test[3, 5] <- 0
+# invalid country code - only one country per file MISSED
+vms_test[3, 2] <- "NO"
+write.table(vms_test, file = "vms_test2.csv", row.names = FALSE, col.names = FALSE, sep = ",")
+runQCChecks("vms_test2.csv", 145, "VE")
+```
+
 
 
 # References
