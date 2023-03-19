@@ -11,7 +11,7 @@
 #'
 #' @examples
 #' \donttest{
-#' filename <- system.file("test_files/vms_test.csv", package = "icesDatsu")
+#' filename <- system.file("test_files/vms_test.csv", package = "icesDatsuQC")
 #' runQCChecks(filename, 145, "VE")
 #' }
 #' @export

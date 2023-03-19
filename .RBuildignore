@@ -1,3 +1,5 @@
 LICENSE
 ^cran-comments\.md$
 ^CRAN-SUBMISSION$
+^README\.md$
+^README\.Rmd$
