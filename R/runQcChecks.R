@@ -7,7 +7,7 @@
 #' @param datasetverID the dataset ID
 #' @param recordType string name of the record type
 #'
-#' @return The list of Datasets that can be screened in DATSU with the IDs
+#' @return The list of check failures
 #'
 #' @examples
 #' \donttest{
@@ -21,32 +21,54 @@
 runQCChecks <- function(filename, datasetverID, recordType) {
   qc <- getListQCChecks(datasetverID, recordType)
 
+  # some formatting and mods to T-SQL
+  qc$sqlExpression <-
+    gsub(
+      "year[(]getdate[(][)][)]", format(Sys.time(), "%Y"),
+      qc$sqlExpression, ignore.case = TRUE
+    )
+  qc$sqlExpression <-
+    gsub(
+      "len[(]", "length(",
+      qc$sqlExpression, ignore.case = TRUE
+    )
+  # qc$sqlExpression <- gsub("isnull[(]", "ifnull(", qc$sqlExpression)
+
+  # prepare the data table
   data <- read.csv(filename, header = FALSE)
   names(data) <- getDataFieldsDescription(datasetverID, recordType)$fieldcode
-  tablename <- paste0("R", recordType)
-  assign(tablename, data)
+  data$Linenumber <- 1:nrow(data)
+  assign(paste0("R", recordType), data)
 
-  checks <-
-    lapply(
-      1:nrow(qc),
-      function(i) {
-        try(
-          sqldf(
-            paste(
-              "select * from", tablename, "where not ",
-              qc$sqlText[i]
-            )
-          )
-        )
-      }
+  # try and run checks
+  try_sqldf <- function(sql) {
+    try(
+      suppressWarnings(
+        sqldf(glue("select * {sql}"))
+      ),
+      silent = TRUE
     )
-  names(checks) <- qc$check_Description
+  }
 
-  fails <- checks[which(sapply(checks, function(x) !inherits(x, "try-error") && nrow(x) > 0))]
+  checks <- lapply(qc$sqlExpression, try_sqldf)
+
+  # report back
+  errored <- which(sapply(checks, function(x) inherits(x, "try-error")))
+  if (length(errored)) {
+    warning(glue("{length(errored)} checks could not be run locally, you may still get errors on submission."))
+  }
+
+  fails <- which(sapply(checks, function(x) !inherits(x, "try-error") && nrow(x) > 0))
   if (length(fails) > 0) {
-    fails
+    warning(glue("{length(fails)} checks failed"))
+
+    cbind(
+      Linenumber = sapply(checks[fails], "[[", "Linenumber"),
+      qc[fails, c("check_Description", "errorType")]
+    )
   } else {
     message("all checks possible to run in R passed")
+
     invisible(NULL)
   }
 }
