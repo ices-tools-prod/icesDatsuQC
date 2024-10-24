@@ -18,15 +18,23 @@
 
 0 errors | 0 warnings | 1 note
 
-* checking CRAN incoming feasibility ... NOTE
+* checking CRAN incoming feasibility ... WARNING
 Maintainer: 'Colin Millar <colin.millar@ices.dk>'
 
 New submission
 
 Package was archived on CRAN
 
+Possibly misspelled words in DESCRIPTION:
+  DATSU (7:40)
+
 CRAN repository db overrides:
   X-CRAN-Comment: Archived on 2024-07-16 for policy violation.
+
+  On Internet access.
+
+Strong dependencies not in mainstream repositories:
+  icesDatsu
 
 * This package was archived due to \donttest examples relying on a web resource.
   This web resource suffered a cyber attack at the same time as rundonttest checks
