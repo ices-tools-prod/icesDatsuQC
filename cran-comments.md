@@ -16,7 +16,7 @@
 
 ## R CMD check results
 
-0 errors | 0 warnings | 1 note
+0 errors | 1 warnings | 0 note
 
 * checking CRAN incoming feasibility ... WARNING
 Maintainer: 'Colin Millar <colin.millar@ices.dk>'
@@ -40,3 +40,6 @@ Strong dependencies not in mainstream repositories:
   This web resource suffered a cyber attack at the same time as rundonttest checks
   were being performed.
   All examples relying on a web resource have been changed to \dontrun
+
+* icesDatsu also was archived for the same policy violation and has recently
+  been resubmitted
