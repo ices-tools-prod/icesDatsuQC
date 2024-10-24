@@ -1,16 +1,17 @@
 Package: icesDatsuQC
-Version: 1.1.0
+Version: 1.2.0
 Title: Run Quality Checks on Data Prior to Submission to ICES
-Authors@R:
-    person("Colin", "Millar", role=c("aut","cre"), email="colin.millar@ices.dk")
+Authors@R: c(person("Colin", "Millar", role=c("aut","cre"), email="colin.millar@ices.dk"),
+             person("Carlos", "Pinto", role="aut"))
 Description: Run quality checks on data sets using the same checks that are conducted
-  on the ICES Data Submission Utility (DATSU) <https://datsu.ices.dk/web/index.aspx>.
+  on the ICES Data Submission Utility (DATSU) <https://datsu.ices.dk>.
 License: GPL (>= 2)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.2
 Imports: sqldf,
           icesDatsu (>= 1.1.0),
           icesVocab,
           glue
 Encoding: UTF-8
-URL: https://datsu.ices.dk/web/index.aspx, https://github.com/ices-tools-prod/icesDatsuQC
+URL: https://datsu.ices.dk, https://github.com/ices-tools-prod/icesDatsuQC
 BugReports: https://github.com/ices-tools-prod/icesDatsuQC/issues
+Language: en-GB

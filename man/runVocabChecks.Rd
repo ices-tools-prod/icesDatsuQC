@@ -23,7 +23,7 @@ submission utility, the user must supply a dataset version and
 record type.
 }
 \examples{
-\donttest{
+\dontrun{
 filename <- system.file("test_files/vms_test.csv", package = "icesDatsuQC")
 vc <- runVocabChecks(filename, 145, "VE")
 if (length(vc) > 0) {

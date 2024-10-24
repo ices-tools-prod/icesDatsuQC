@@ -5,53 +5,59 @@ output:
 ---
 
 
-[![r-universe version](https://ices-tools-prod.r-universe.dev/badges/icesDatsuQC)](https://ices-tools-prod.r-universe.dev/ui#package:icesDatsuQC)
-[![CRAN Status](http://r-pkg.org/badges/version/icesDatsuQC)](https://cran.r-project.org/package=icesDatsuQC)
-[![CRAN Monthly](http://cranlogs.r-pkg.org/badges/icesDatsuQC)](https://cran.r-project.org/package=icesDatsuQC)
-[![CRAN Total](http://cranlogs.r-pkg.org/badges/grand-total/icesDatsuQC)](https://cran.r-project.org/package=icesDatsuQC)
+![Project Status](https://www.repostatus.org/badges/latest/active.svg)
+[![r-universe name](https://ices-tools-prod.r-universe.dev/badges/:name)](https://ices-tools-prod.r-universe.dev)
+[![version number](https://ices-tools-prod.r-universe.dev/badges/icesDatsuQC)](https://ices-tools-prod.r-universe.dev/icesDatsuQC)
+![branch version number](https://img.shields.io/badge/branch_version-`r packageDescription("icesDatsuQC")$Version`-blue)
+[![GitHub release](https://img.shields.io/github/release/ices-tools-prod/icesDatsuQC.svg?maxAge=6000)]()
+[![License](https://img.shields.io/badge/license-GPL%20(%3E%3D%202)-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html)
+
+CRAN status:
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/icesDatsuQC)](https://cran.r-project.org/package=icesDatsuQC)
+![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/icesDatsuQC)
+![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/grand-total/icesDatsuQC)
 
 [<img align="right" alt="ICES Logo" width="17%" height="17%" src="http://ices.dk/_layouts/15/1033/images/icesimg/iceslogo.png">](http://ices.dk)
 
-```{r, setup, echo = FALSE}
-library(knitr)
-library(icesDatsuQC)
-```
-
-icesDatsuQC
-=======
+### icesDatsuQC
 
 Run quality checks on data sets using the same checks that are conducted on the [ICES Data Submission Utility (DATSU)](https://datsu.ices.dk/web/index.aspx).
 
-icesDatsuQC is implemented as an [R](https://www.r-project.org) package
+icesDatsuQC is implemented as an [R](https://www.r-project.org) package and
+is currently hosted on [r-universe](https://ices-tools-prod.r-universe.dev)
 and available on [CRAN](https://cran.r-project.org/package=icesDatsuQC).
 
-Installation
-------------
+### Installation
 
-icesDatsuQC can be installed from CRAN using the standard `install.packages()` command
+The stable version of icesDatsuQC can be installed from CRAN using the `install.packages` command:
 
-```R
-install.packages("icesDatsuQC")
+```r
+install.packages("icesDatsuQC", repos = "https://cloud.r-project.org")
 ```
 
-Usage
------
+or a potentially more recent, but less stable version installed from r-universe:
+
+```r
+install.packages("icesDatsuQC", repos = "https://ices-tools-prod.r-universe.dev")
+```
+
+### Usage
 
 For a summary of the package:
 
-```R
+```r
 library(icesDatsuQC)
 ?icesDatsuQC
 ```
 
-Examples
---------
+### Examples
 
-## Test a VMS data file
+#### Test a VMS data file
 
 A sample data file is included with the icesDatsu package called vms_test.csv
 ```{r}
-filename <- system.file("test_files/vms_test.csv", package = "icesDatsu")
+library(icesDatsuQC)
+filename <- system.file("test_files/vms_test.csv", package = "icesDatsuQC")
 vms_test <- read.csv(filename, header = FALSE)
 head(vms_test)
 ```
@@ -80,6 +86,25 @@ write.table(vms_test, file = "vms_test2.csv", row.names = FALSE, col.names = FAL
 runQCChecks("vms_test2.csv", 145, "VE")
 ```
 
+### References
 
+ICES Data Screening Utility (DATSU):
+https://datsu.ices.dk
 
-# References
+ICES Data Screening Utility web services:
+https://datsu.ices.dk/web/webservices.aspx
+
+### Development
+
+icesDatsuQC is developed openly on
+[GitHub](https://github.com/ices-tools-prod/icesDatsuQC).
+
+Feel free to open an [issue](https://github.com/ices-tools-prod/icesDatsuQC/issues)
+there if you encounter problems or have suggestions for future versions.
+
+The current development version can be installed using:
+
+```R
+library(devtools)
+install_github("ices-tools-prod/icesDatsuQC@development")
+```

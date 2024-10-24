@@ -12,7 +12,7 @@
 #'         reported for each field.
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' filename <- system.file("test_files/vms_test.csv", package = "icesDatsuQC")
 #' vc <- runVocabChecks(filename, 145, "VE")
 #' if (length(vc) > 0) {

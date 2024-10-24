@@ -10,7 +10,7 @@
 #' @return The list of check failures
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' filename <- system.file("test_files/vms_test.csv", package = "icesDatsuQC")
 #' runQCChecks(filename, 145, "VE")
 #' }
@@ -36,7 +36,13 @@ runQCChecks <- function(filename, datasetverID, recordType) {
 
   # prepare the data table
   data <- read.csv(filename, header = FALSE)
-  names(data) <- getDataFieldsDescription(datasetverID, recordType)$fieldcode
+  colnames <- getDataFieldsDescription(datasetverID, recordType)$fieldcode
+
+  if (length(colnames) != ncol(data)) {
+    stop("The number of columns in the data file does not match the number of fields in the dataset")
+  }
+
+  names(data) <- colnames
   data$Linenumber <- 1:nrow(data)
   assign(paste0("R", recordType), data)
 
@@ -63,8 +69,8 @@ runQCChecks <- function(filename, datasetverID, recordType) {
     warning(glue("{length(fails)} checks failed"))
 
     cbind(
-      Linenumber = sapply(checks[fails], "[[", "Linenumber"),
-      qc[fails, c("check_Description", "errorType")]
+      Linenumber = unlist(lapply(checks[fails], "[[", "Linenumber")),
+      qc[rep(fails, sapply(checks[fails], nrow)), c("check_Description", "errorType")]
     )
   } else {
     message("all checks possible to run in R passed")

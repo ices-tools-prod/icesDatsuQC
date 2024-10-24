@@ -21,7 +21,7 @@ Check a data set against the ICES DATSU data submission utility,
 the user must supply a dataset version and record type.
 }
 \examples{
-\donttest{
+\dontrun{
 filename <- system.file("test_files/vms_test.csv", package = "icesDatsuQC")
 runQCChecks(filename, 145, "VE")
 }
